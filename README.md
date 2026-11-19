@@ -3,7 +3,7 @@
 Finds where and when a night-sky timelapse was shot, and names the
 satellites in it. From the footage alone: no GPS, no timestamps.
 
-If you find that your timelapse video gives away your location you can [fix it] (https://github.com/dmead/remove-satellites)
+If you find that your timelapse video gives away your location you can [fix it](https://github.com/dmead/remove-satellites)
 
 ![A solve replayed on a synthetic sky](docs/solve.gif)
 
