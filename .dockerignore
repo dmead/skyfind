@@ -1,0 +1,9 @@
+# only what the images copy
+*
+!pyproject.toml
+!uv.lock
+!skyfind/
+!tests/
+!scripts/
+**/__pycache__
+**/*.pyc

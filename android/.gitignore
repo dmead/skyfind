@@ -1,0 +1,13 @@
+.gradle/
+build/
+app/build/
+local.properties
+*.apk
+# built from the sibling repos and reference data at build time
+app/src/main/python-gen/
+app/src/main/assets/data/
+app/src/main/jniLibs/
+native/build/
+*.log
+# this machine's toolchain paths
+local.sh

@@ -1,0 +1,12 @@
+# The image engine from a local checkout (its uncommitted work included)
+# instead of the commit uv.lock pins: add to COMPOSE_FILE in .env.
+# REMOVE_SATELLITES_DIR: the checkout (default: beside this repo).
+services:
+  skyfind:
+    build:
+      additional_contexts:
+        remove_satellites: ${REMOVE_SATELLITES_DIR:-../remove-satellites}
+  phone:
+    build:
+      additional_contexts:
+        remove_satellites: ${REMOVE_SATELLITES_DIR:-../remove-satellites}

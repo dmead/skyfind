@@ -1,0 +1,45 @@
+# skyfind in containers. This machine's folders come from .env (untracked;
+# see .env.example). Inside, the reference data is /data, clips are under
+# /clips (a clip's work folder sits next to it, as on the host) and /work
+# is for scratch work folders. Only these folders are shared.
+#
+#   docker compose build
+#   docker compose run --rm skyfind run /clips/night.mp4 --tle /clips/night.3le
+#   docker compose run --rm --entrypoint pytest skyfind -q /src/tests
+#   docker compose run --rm phone            # the phone stack's tests
+#
+# Space-Track: SPACETRACK_USER / SPACETRACK_PASSWORD are passed through
+# from the shell that runs compose, never written anywhere.
+# A GPU: add docker-compose.gpu.yml (COMPOSE_FILE in .env).
+# The image engine is the commit uv.lock pins, from GitHub; to build with a
+# local checkout of it instead, add docker-compose.engine.yml.
+
+x-common: &common
+  build: &build
+    context: .
+  volumes:
+    - ${SKYFIND_DATA_DIR:?set SKYFIND_DATA_DIR in .env}:/data
+    - ${CLIPS_DIR:?set CLIPS_DIR in .env}:/clips
+    # scratch work folders (--workdir /work/...), when not next to the clip
+    - ${WORK_DIR:-./work}:/work
+  # the orbit table is built in shared memory by the solver's processes
+  shm_size: ${SHM_SIZE:-16gb}
+
+services:
+  skyfind:
+    <<: *common
+    build:
+      <<: *build
+      target: skyfind
+    image: skyfind:local
+    environment:
+      - SPACETRACK_USER
+      - SPACETRACK_PASSWORD
+
+  phone:
+    <<: *common
+    build:
+      <<: *build
+      target: phone
+    image: skyfind-phone:local
+    profiles: [phone]

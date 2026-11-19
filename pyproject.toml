@@ -1,0 +1,40 @@
+[project]
+name = "skyfind"
+version = "0.1.0"
+description = "skyfind — where and when a star-field timelapse was shot, and which satellites crossed it"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.0",
+    "opencv-python-headless>=4.10",
+    "scipy>=1.14",
+    "typer>=0.12",
+    "skyfield>=1.49",
+    "sgp4>=2.23",
+    # the image engine: video IO, sky tracking, foreground mask, the cleaner
+    "remove-satellites",
+]
+
+[project.optional-dependencies]
+# the workbench and live window (`skyfind gui`; keyring keeps a Space-Track
+# password in the system keyring); GIF replays need only ffmpeg
+gui = ["pyside6>=6.7", "keyring>=25"]
+
+[project.scripts]
+skyfind = "skyfind.cli:main"
+
+[tool.uv.sources]
+remove-satellites = { git = "https://github.com/dmead/remove-satellites", rev = "3c2c20cf65de8e08d78621593075db9834b44f6b" }
+
+[dependency-groups]
+dev = ["pytest>=8.3"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["skyfind"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: end-to-end runs on a rendered clip (deselect with -m 'not slow')"]

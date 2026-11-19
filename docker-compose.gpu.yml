@@ -1,0 +1,6 @@
+# The host's NVIDIA GPU for the solve (CuPy). Add to COMPOSE_FILE in .env;
+# needs the NVIDIA driver with container support (Docker Desktop's WSL 2
+# backend has it on Windows; the NVIDIA container toolkit elsewhere).
+services:
+  skyfind:
+    gpus: all
