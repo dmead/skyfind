@@ -7,19 +7,20 @@ satellites in it. From the footage alone: no GPS, no timestamps.
 
 *A synthetic sky (made-up site, clock and constellation), `skyfind replay`.*
 
-## How
+## How it works
 
-1. **Stars:** a blind plate solve gives the lens, the pointing and the time
-   between frames.
-2. **Skyline:** which way is up, so a rough latitude.
-3. **Planets or comets:** the date.
-4. **Satellite trails:** fitted against every catalogued orbit for that
-   night. Where different objects agree is the site (latitude, longitude,
-   height) and the clock; the exposure falls out of the same fit. Then
-   every trail is named, with a confidence tier and a count of chance
-   matches.
+1. **Stars** give the lens, where the camera points and the time between
+   frames.
+2. **The skyline** shows which way is up, which gives a rough latitude.
+3. **Planets or comets** in view date the night.
+4. **Satellite trails** are matched against the orbit of every catalogued
+   object that night. The place and time where several different
+   satellites line up is the answer: latitude, longitude, height, the
+   clock and the exposure. Then every trail is named, with a confidence
+   level and an estimate of how many matches are chance.
 
-Trails are what differs between the clip and a copy with them taken out:
+To find the trails, skyfind takes them out of a copy of the clip and
+compares the two:
 
 ![The clip beside its trail-free copy](docs/trails-out.gif)
 
